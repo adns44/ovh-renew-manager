@@ -37,7 +37,7 @@ python3 set-renew.py
 
 And follow on-screen instructions.
 
-## Remakrs
+## Remarks
 
 No responsibility taken, use at your own risk!
 
