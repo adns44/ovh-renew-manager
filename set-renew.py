@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import json
-from sys import exception
 import time
 import ovh
 import os
