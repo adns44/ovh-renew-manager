@@ -41,7 +41,7 @@ if len(product_ids) < 1:
 
 for item in product_ids:
     product = client.get(f"/services/{item}")
-    if product["route"]:
+    if product["route"] and product["billing"]["lifecycle"]["current"]["state"] == "active":
         serviceId = product["serviceId"]
         if serviceId not in servers:
             servers[serviceId]={}
