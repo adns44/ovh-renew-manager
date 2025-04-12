@@ -85,9 +85,11 @@ if server_id == "all":
 else:
     print(f"Selected: {servers[service_ids[server_id]]['displayName']}")
     print("Addons:")
-    for i in servers[service_ids[server_id]]["addon_ids"]:
-        print(f"{i['invoice']}: {i['renew_mode']}")
-
+    if "addon_ids" in servers[service_ids[server_id]]:
+        for i in servers[service_ids[server_id]]["addon_ids"]:
+            print(f"{i['invoice']}: {i['renew_mode']}")
+    else:
+        print("No additional invoiced addons for this service.")
 renew_mode = (input('Set renew mode. Possible values: manual, automatic (default is automatic): ') or "automatic")
 renew_period = "P1M"
 if renew_mode == "automatic":
@@ -99,15 +101,16 @@ print("After this run, rerun the script to see the changes. Press CTRL+c in the 
 
 if server_id != "all":
     update_renewal(client, service_api_id, renew_mode, renew_period)
-    for i in servers[service_api_id]["addon_ids"]:
-        update_renewal(client, i["id"], renew_mode, renew_period)
-
+    if "addon_ids" in servers[service_api_id]:
+        for i in servers[service_api_id]["addon_ids"]:
+            update_renewal(client, i["id"], renew_mode, renew_period)
 
 if server_id == "all":
     for i in servers:
         server=servers[i]
         update_renewal(client, i, renew_mode, renew_period)
-        for j in server["addon_ids"]:
-            update_renewal(client, j["id"], renew_mode, renew_period)
+        if "addon_ids" in server:
+            for j in server["addon_ids"]:
+                update_renewal(client, j["id"], renew_mode, renew_period)
 
 print("Thanks for using my script. :)")
